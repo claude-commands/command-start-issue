@@ -14,7 +14,7 @@ ln -s <clone-path>/command-start-issue/start-issue.md ~/.claude/commands/start-i
 
 ## Usage
 
-```
+```text
 /start-issue 123
 ```
 

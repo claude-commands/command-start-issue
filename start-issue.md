@@ -6,6 +6,34 @@ allowed-tools: ["Bash", "Read", "AskUserQuestion"]
 
 # Start Issue Worktree
 
+**If `$ARGUMENTS` is empty or not provided:**
+
+Display usage information and ask for input:
+
+This command creates an isolated git worktree for working on a GitHub issue.
+
+**Usage:** `/start-issue <issue-number>`
+
+**Example:** `/start-issue 789`
+
+**What it does:**
+
+1. Creates a new worktree directory (e.g., `../myproject-issue-789-feature-name/`)
+2. Checks out from the `dev` branch
+3. Creates a feature branch for the issue
+4. Copies your `.claude` configuration to the new worktree
+
+**Prerequisites:**
+
+- `WORKTREE_PREFIX` environment variable (will prompt if not set)
+- GitHub CLI (`gh`) authenticated
+
+Ask the user: "What issue number would you like to start working on?"
+
+---
+
+**If `$ARGUMENTS` is provided:**
+
 Create a new git worktree for GitHub issue #$ARGUMENTS
 
 ## Pre-flight: Check Configuration
@@ -20,21 +48,25 @@ First, check if WORKTREE_PREFIX is configured:
 2. Detect their platform and provide the appropriate command:
 
    **macOS/Linux (bash/zsh):**
+
    ```bash
    echo 'export WORKTREE_PREFIX="<their-prefix>"' >> ~/.zshrc && source ~/.zshrc
    ```
 
    **macOS/Linux (bash):**
+
    ```bash
    echo 'export WORKTREE_PREFIX="<their-prefix>"' >> ~/.bashrc && source ~/.bashrc
    ```
 
    **Windows (PowerShell):**
+
    ```powershell
    [Environment]::SetEnvironmentVariable("WORKTREE_PREFIX", "<their-prefix>", "User")
    ```
 
    **Windows (CMD):**
+
    ```cmd
    setx WORKTREE_PREFIX "<their-prefix>"
    ```
@@ -44,6 +76,8 @@ First, check if WORKTREE_PREFIX is configured:
 **If WORKTREE_PREFIX is set**, proceed with the steps below.
 
 ## Steps
+
+<!-- markdownlint-disable MD013 -->
 
 1. **Fetch issue details from GitHub**
    !gh issue view $ARGUMENTS --json title,state,number
@@ -80,6 +114,8 @@ First, check if WORKTREE_PREFIX is configured:
    !echo "Path: $WORKTREE_PATH"
    !echo "Branch: $BRANCH_NAME"
    !echo "To switch: cd $WORKTREE_PATH"
+
+<!-- markdownlint-enable MD013 -->
 
 ## Next Steps
 
