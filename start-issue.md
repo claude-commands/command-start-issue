@@ -1,17 +1,47 @@
 ---
 argument-hint: "<issue-number>"
 description: "Create a new git worktree for a GitHub issue"
-allowed-tools: ["Bash", "Read"]
+allowed-tools: ["Bash", "Read", "AskUserQuestion"]
 ---
 
 # Start Issue Worktree
 
 Create a new git worktree for GitHub issue #$ARGUMENTS
 
-## Configuration
+## Pre-flight: Check Configuration
 
-Before using, set your project prefix in the WORKTREE_PREFIX variable below.
-Default is "project" - change it to match your project name (e.g., "my-app", "api-server").
+First, check if WORKTREE_PREFIX is configured:
+
+!echo "WORKTREE_PREFIX=${WORKTREE_PREFIX:-NOT_SET}"
+
+**If WORKTREE_PREFIX is "NOT_SET"**, stop and help the user configure it:
+
+1. Ask them what prefix they want (e.g., their project name like "my-api", "frontend-app")
+2. Detect their platform and provide the appropriate command:
+
+   **macOS/Linux (bash/zsh):**
+   ```bash
+   echo 'export WORKTREE_PREFIX="<their-prefix>"' >> ~/.zshrc && source ~/.zshrc
+   ```
+
+   **macOS/Linux (bash):**
+   ```bash
+   echo 'export WORKTREE_PREFIX="<their-prefix>"' >> ~/.bashrc && source ~/.bashrc
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   [Environment]::SetEnvironmentVariable("WORKTREE_PREFIX", "<their-prefix>", "User")
+   ```
+
+   **Windows (CMD):**
+   ```cmd
+   setx WORKTREE_PREFIX "<their-prefix>"
+   ```
+
+3. After they run the command, ask them to restart Claude Code or run the command again.
+
+**If WORKTREE_PREFIX is set**, proceed with the steps below.
 
 ## Steps
 
