@@ -5,11 +5,11 @@ A Claude Code slash command for creating git worktrees for GitHub issues.
 ## Installation
 
 ```bash
-# Clone to your claude-commands directory
-git clone git@github.com:claude-commands/command-start-issue.git ~/projects/claude-commands/command-start-issue
+# Clone to your preferred location
+git clone git@github.com:claude-commands/command-start-issue.git <clone-path>/command-start-issue
 
-# Create symlink
-ln -s ~/projects/claude-commands/command-start-issue/start-issue.md ~/.claude/commands/start-issue.md
+# Symlink (use full path to cloned repo)
+ln -s <clone-path>/command-start-issue/start-issue.md ~/.claude/commands/start-issue.md
 ```
 
 ## Usage
@@ -54,5 +54,5 @@ Use with `/prune-worktree` to clean up completed worktrees.
 ## Updates
 
 ```bash
-cd ~/projects/claude-commands/command-start-issue && git pull
+cd <clone-path>/command-start-issue && git pull
 ```
